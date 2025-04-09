@@ -8,6 +8,6 @@ public class HttpResponse {
 
     public String getResponse() {
         // hardcode the response for now
-        return "HTTP/1.1 " + status.toString() + " " + CRLF + CRLF;
+        return "HTTP/1.1 " + status.toString() + CRLF + CRLF;
     }
 }
