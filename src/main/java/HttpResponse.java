@@ -7,6 +7,7 @@ public class HttpResponse {
     }
 
     public String getResponse() {
-        return "HTTP/1.1 " + status.getCode() + " " + CRLF;
+        // hardcode the response for now
+        return "HTTP/1.1 " + status.getCode() + CRLF + CRLF;
     }
 }
