@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.BufferedReader;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -26,33 +27,22 @@ public class Main {
       Socket client = serverSocket.accept(); // Wait for connection from client.
 
      // input stream
-     BufferedReader inputStream = new BufferedReader(new InputStreamReader(client.getInputStream()));
+    BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+    OutputStream outputStream = client.getOutputStream();
+    // First line contains the request line, other lines will contain the headers and body
+    String line = reader.readLine();
+    // parse the request line to get the request path
+    String path = line.split(" ")[1];
+
+    if (VALID_PATHS.contains(path)) {
+      outputStream.write(new HttpResponse(Status.OK).getResponse().getBytes());
+    } else {
+      outputStream.write(new HttpResponse(Status.NOT_FOUND).getResponse().getBytes());
       
-     final String serverResponse = new HttpResponse(Status.OK).getResponse();
-
-     // splits each line in the inputStream by the CRLF line terminator for windows, line feed for unxix/mac/linux and carriage return for old mac
-      List<String> lines = inputStream.lines().toList();
-      String requestline = lines.get(0);
-      List<String> headers = lines.subList(1, lines.size());
-      // Split out the request line into its components
-      List<String> requestLineParts = List.of(requestline.split(" "));
-      String method = requestLineParts.get(0);
-      String path = requestLineParts.get(1);
-      String version = requestLineParts.get(2);
-
-      String response = "Heello World!";
-      if (path.equals("/")) {
-        response = serverResponse;
-      } else {
-        response = new HttpResponse(Status.NOT_FOUND).getResponse();
-      }
-
-      // write the response
-      client.getOutputStream().write(response.getBytes());
-
+    }
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
-    }
+    } 
   }
 
   /**
