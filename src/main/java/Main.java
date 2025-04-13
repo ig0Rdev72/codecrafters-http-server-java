@@ -40,10 +40,16 @@ public class Main {
       String path = requestLineParts.get(1);
       String version = requestLineParts.get(2);
 
-      String response = path.contains("/") ? serverResponse : new HttpResponse(Status.NOT_FOUND).getResponse();
+      String response;
+      if (path.equals("/")) {
+        response = serverResponse;
+      } else {
+        response = new HttpResponse(Status.NOT_FOUND).getResponse();
+        
+      }
 
       // write the response
-     client.getOutputStream().write(response.getBytes());
+      client.getOutputStream().write(response.getBytes());
 
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
