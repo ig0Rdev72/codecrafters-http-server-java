@@ -19,10 +19,11 @@ public class HttpResponse {
     class MessageFormatter {
         public String format(HttpResponse httpResponse) {
             return String.format(
-                "%s %s %s",
+                "%s %s %s%s",
                 HTTP_VERSION,
                 httpResponse.status.getCode(),
-                httpResponse.status.getMessage()
+                httpResponse.status.getMessage(),
+                SEPERATOR
             );
         }
     }
