@@ -3,6 +3,7 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 
 
 public class Main {
@@ -10,8 +11,12 @@ public class Main {
     // You can use print statements as follows for debugging, they'll be visible when running tests.
     System.out.println("Logs from your program will appear here!");
 
-    
+    final List<String> VALID_PATHS = List.of(
+      "/"
+    );
+
     try {
+
       ServerSocket serverSocket = new ServerSocket(4221);
     
       // Since the tester restarts your program quite often, setting SO_REUSEADDR
@@ -25,15 +30,21 @@ public class Main {
       
      final String serverResponse = new HttpResponse(Status.OK).getResponse();
 
-      // read the request line
-     while (inputStream.readLine(); != null) {
-        System.out.println("request line: " + inputStream.readLine());
-      
-     }
-  
+     // splits each line in the inputStream by the CRLF line terminator for windows, line feed for unxix/mac/linux and carriage return for old mac
+      List<String> lines = inputStream.lines().toList();
+      String requestline = lines.get(0);
+      List<String> headers = lines.subList(1, lines.size());
+      // Split out the request line into its components
+      List<String> requestLineParts = List.of(requestline.split(" "));
+      String method = requestLineParts.get(0);
+      String path = requestLineParts.get(1);
+      String version = requestLineParts.get(2);
+
+      String response = VALID_PATHS.contains(path) ? serverResponse : new HttpResponse(Status.NOT_FOUND).getResponse();
+
+      // write the response
      client.getOutputStream().write(serverResponse.getBytes());
 
-      System.out.println("accepted new connection");
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
     }
