@@ -43,7 +43,7 @@ public class Main {
       String response = VALID_PATHS.contains(path) ? serverResponse : new HttpResponse(Status.NOT_FOUND).getResponse();
 
       // write the response
-     client.getOutputStream().write(serverResponse.getBytes());
+     client.getOutputStream().write(response.getBytes());
 
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());

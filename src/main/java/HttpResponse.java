@@ -1,5 +1,6 @@
 public class HttpResponse {
     private final Status status;
+    private static String HTTP_VERSION = "HTTP/1.1";
 
     // SEPERATOR is used to separate the header from the body
     static final String SEPERATOR = "\r\n";
@@ -10,6 +11,6 @@ public class HttpResponse {
 
     public String getResponse() {
         // hardcode the response for now
-        return "HTTP/1.1 " + status.toString() + SEPERATOR + SEPERATOR;
+        return HTTP_VERSION + " " + status.toString() + SEPERATOR + SEPERATOR;
     }
 }
