@@ -40,7 +40,7 @@ public class Main {
       String path = requestLineParts.get(1);
       String version = requestLineParts.get(2);
 
-      String response = VALID_PATHS.contains(path) ? serverResponse : new HttpResponse(Status.NOT_FOUND).getResponse();
+      String response = path.contains("/") ? serverResponse : new HttpResponse(Status.NOT_FOUND).getResponse();
 
       // write the response
      client.getOutputStream().write(response.getBytes());
