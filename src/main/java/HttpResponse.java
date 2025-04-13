@@ -1,3 +1,5 @@
+import java.text.MessageFormat;
+
 public class HttpResponse {
     private final Status status;
     private static String HTTP_VERSION = "HTTP/1.1";
@@ -11,6 +13,17 @@ public class HttpResponse {
 
     public String getResponse() {
         // hardcode the response for now
-        return HTTP_VERSION + " " + status.toString() + SEPERATOR + SEPERATOR;
+        return new MessageFormatter().format(this) + SEPERATOR;
+    }
+
+    class MessageFormatter {
+        public String format(HttpResponse httpResponse) {
+            return MessageFormat.format(
+                "{0} {1} {2}",
+                httpResponse.HTTP_VERSION,
+                httpResponse.status.getCode(),
+                httpResponse.status.getMessage()
+            );
+        }
     }
 }
