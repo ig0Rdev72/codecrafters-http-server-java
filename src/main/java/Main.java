@@ -24,6 +24,12 @@ public class Main {
      BufferedReader inputStream = new BufferedReader(new InputStreamReader(client.getInputStream()));
       
      final String serverResponse = new HttpResponse(Status.OK).getResponse();
+
+      // read the request line
+     while (inputStream.readLine(); != null) {
+        System.out.println("request line: " + inputStream.readLine());
+      
+     }
   
      client.getOutputStream().write(serverResponse.getBytes());
 
@@ -32,4 +38,15 @@ public class Main {
       System.out.println("IOException: " + e.getMessage());
     }
   }
+
+  /**
+   * Notes:
+   *  - Http request is separated into 3 parts separated by CRLF (\r\n):
+   *    1. Request line
+   *   2. Headers - Zero or more each ended with the CRLF
+   *   3. Body - Optional
+   *  
+   * First part is the reuqest line in format: HTTP METHOD PATH VERSION
+   * - The second part is the headers, each header is in the format: KEY: VALUE2
+   */
 }
