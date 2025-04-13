@@ -18,8 +18,8 @@ public class HttpResponse {
 
     class MessageFormatter {
         public String format(HttpResponse httpResponse) {
-            return MessageFormat.format(
-                "{0} {1} {2}",
+            return String.format(
+                "%s %s %s",
                 HTTP_VERSION,
                 httpResponse.status.getCode(),
                 httpResponse.status.getMessage()
