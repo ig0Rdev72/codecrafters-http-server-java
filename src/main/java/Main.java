@@ -40,12 +40,11 @@ public class Main {
       String path = requestLineParts.get(1);
       String version = requestLineParts.get(2);
 
-      String response;
+      String response = "Heello World!";
       if (path.equals("/")) {
         response = serverResponse;
       } else {
         response = new HttpResponse(Status.NOT_FOUND).getResponse();
-        
       }
 
       // write the response
