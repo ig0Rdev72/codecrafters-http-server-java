@@ -20,7 +20,7 @@ public class HttpResponse {
         public String format(HttpResponse httpResponse) {
             return MessageFormat.format(
                 "{0} {1} {2}",
-                httpResponse.HTTP_VERSION,
+                HTTP_VERSION,
                 httpResponse.status.getCode(),
                 httpResponse.status.getMessage()
             );
