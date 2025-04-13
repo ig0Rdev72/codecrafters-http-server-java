@@ -18,13 +18,20 @@ public class HttpResponse {
 
     class MessageFormatter {
         public String format(HttpResponse httpResponse) {
-            return String.format(
-                "%s %s %s%s",
+            return MessageFormat.format(
+                "{0} {1} {2}{3}{4}",
                 HTTP_VERSION,
                 httpResponse.status.getCode(),
                 httpResponse.status.getMessage(),
+                addHeaders(httpResponse),
                 SEPERATOR
             );
+        }
+
+        public String addHeaders(HttpResponse httpResponse) {
+            // todo: Update this to iterator over each header and return a string representation with CRLF
+            return MessageFormat.format(
+                "{0}", SEPERATOR);
         }
     }
 }
